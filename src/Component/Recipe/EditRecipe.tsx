@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, Form, Button, Image, Alert } from "react-bootstrap";
-import { useOutletContext } from "react-router-dom";
+import { Navigate, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { Recipe } from "../../Model/Recipe";
-import { createRecipe } from "../../Data/Http";
+import { createRecipe, updateRecipe } from "../../Data/Http";
 // import ReactDOM from "react-dom";
 
 interface Contex {
@@ -13,6 +13,8 @@ const EditRecipe = () => {
   const recipeContex: Contex = useOutletContext();
   const recipeListData = recipeContex.recipes;
   const setRecipeListData = recipeContex.setRecipes;
+  const navigate = useNavigate();
+  const { id } = useParams<string>();
   const [name, setName] = useState("");
   const [discription, setDiscripton] = useState("");
   const [imagePath, setImagePath] = useState("");
@@ -54,6 +56,31 @@ const EditRecipe = () => {
    
   };
 
+  const updateRecipes = (recipe : Recipe, id: string) => {
+  
+    setAddedMessage("Updated");
+    updateRecipe(recipe, id);
+    navigate("/")
+  }
+
+  useEffect(() => {
+   const recipe =  recipeListData.find((rep ) =>{
+      return  rep.id === +id!;
+    });
+    console.log(id)
+    if(id){
+      setRecipe(recipe);
+      setName(recipe?.name || "");
+      setDiscripton(recipe?.discription || "");
+      setImagePath(recipe?.imagePath || "");
+    }else{
+      setName("");
+      setDiscripton("");
+      setImagePath("");
+      setRecipe(null);
+    }
+  },[id]);
+
   useEffect(() => {
     const timeId = setTimeout(() => {
       // After 3 seconds set the show message to false
@@ -68,7 +95,7 @@ const EditRecipe = () => {
   const onSubmit = (event: any) => {
     event.preventDefault();
     event.stopPropagation();
-    addRecipe();
+    id ?  updateRecipes(recipe, id): addRecipe();
     formRef.current.reset();
     setRecipe(null);
     setName("");
@@ -83,6 +110,7 @@ const EditRecipe = () => {
           <Form.Control
             type="text"
             placeholder="Recipe Name"
+            value = {recipe?.name || ""}
             onChange={(e) => {
               setRecipe({ ...recipe, name: e.target.value });
               setName(e.target.value);
@@ -94,6 +122,7 @@ const EditRecipe = () => {
           <Form.Control
             type="text"
             placeholder="Image URL"
+            value = {recipe?.imagePath || ""}
             onChange={(e) => {
               setRecipe({ ...recipe, imagePath: e.target.value });
               setImagePath(e.target.value);
@@ -108,6 +137,7 @@ const EditRecipe = () => {
             as="textarea"
             placeholder="Recipe Discription"
             rows={3}
+            value={recipe?.discription || ""}
             onChange={(e) => {
               setRecipe({ ...recipe, discription: e.target.value });
               setDiscripton(e.target.value);
@@ -121,7 +151,7 @@ const EditRecipe = () => {
           onClick={onSubmit}
           disabled={!isVald}
         >
-          Add
+          {id ? "UPDATE" : "Add"}
         </Button>
       </Form>
       <Alert
@@ -135,6 +165,12 @@ const EditRecipe = () => {
         className={addedMessage === "exist" ? "d-block mt-3" : "d-none"}
       >
         <h4>Recipe Already Exist</h4>
+      </Alert>
+      <Alert
+        variant="success"
+        className={addedMessage === "Updated" ? "d-block mt-3" : "d-none"}
+      >
+        <h4>Recipe Updated</h4>
       </Alert>
     </Container>
   );

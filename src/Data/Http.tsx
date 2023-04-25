@@ -27,6 +27,20 @@ export const createRecipe = async (recipe : Recipe) => {
 
 }
 
+export const updateRecipe = async (recipe : Recipe, recipeId :string) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({id: recipeId, name:recipe.name, discription: recipe.discription, imagePath : recipe.imagePath}),
+  };
+  await fetch("http://localhost:8080/recipes/update" , requestOptions)
+    .then((response) => response.text())
+    .then((data) => {
+      console.log(data);
+    });
+
+}
+
 export const deleteRecipe = async (requestedId : string) => {
   await fetch("http://localhost:8080/recipes/delete?"+ new URLSearchParams({id : requestedId}) , { method: 'DELETE' })
   .then((response) => response.text())

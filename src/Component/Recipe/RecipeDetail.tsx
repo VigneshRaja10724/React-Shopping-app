@@ -21,10 +21,16 @@ const RecipeDetail = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let recipe = recipes[+id!]; //In TypeScript, a postfix ! removes null and undefined from the type of an expression.
+    // let recipe = recipes[+id!]; //In TypeScript, a postfix ! removes null and undefined from the type of an expression.
+    let recipe =  recipes.find((rep ) =>{
+      return  rep.id === +id!;
+    })
     setData(recipe);
   }, [id]);
 
+  const onUpdate = () => {
+    navigate(`/edit/${id}`)
+  }
   const onDelete = () => {
     const updatedRecipes = recipes.splice(+id!, 1);
     navigate("/");
@@ -42,9 +48,8 @@ const RecipeDetail = () => {
       <Row>
         <h4>{data?.discription}</h4>
       </Row>
-      <Button variant="danger" onClick={onDelete}>
-        Delete
-      </Button>
+      <Button variant="primary" onClick={onUpdate}>Edit</Button>{" "}
+      <Button variant="danger" onClick={onDelete}> Delete</Button>
     </Container>
   );
 };

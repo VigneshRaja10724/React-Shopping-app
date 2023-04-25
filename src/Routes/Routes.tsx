@@ -12,6 +12,7 @@ const ComponentRoutes = () => {
         <Route path="/" element={<RecipeCompo />}>
           <Route path="" element={<SelectRecipe />}></Route>
           <Route path="newRecipe" element={<EditRecipe />}></Route>
+          <Route path="/edit/:id" element={<EditRecipe />}></Route>
           <Route path="select/:id" element={<RecipeDetail />}></Route>
           <Route path=":id/edit" element={<EditRecipe />}></Route>
         </Route>
