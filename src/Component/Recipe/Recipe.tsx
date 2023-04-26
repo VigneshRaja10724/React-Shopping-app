@@ -9,7 +9,6 @@ export default function RecipeCompo() {
   const [recipes, setRecipes] = useState<Recipe[] | undefined>();
 
   useEffect(() => {
-    //  if(recipes.length == 0){
     getAll()
       .then((recipe: Recipe[]) => {
         setRecipes(recipe);
@@ -17,16 +16,13 @@ export default function RecipeCompo() {
       .catch((error: any) => {
         console.log(error);
       });
-    //  }
   }, []);
-
-  // useEffect(() => {console.log(recipes)}, [recipes]);
 
   if (recipes) {
     return (
       <Container fluid style={{ paddingTop: 20 }}>
         <Row xs={12}>
-          <Col className="scroll" xs={6}>
+          <Col>
             <RecipeList recipeList={recipes} />
           </Col>
           <Col xs={6}>

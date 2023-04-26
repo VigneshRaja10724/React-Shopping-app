@@ -32,7 +32,11 @@ const RecipeDetail = () => {
     navigate(`/edit/${id}`)
   }
   const onDelete = () => {
-    const updatedRecipes = recipes.splice(+id!, 1);
+    const recipeIndex : any = recipes.findIndex((rep) =>{
+      return  rep.id === +id!;
+    })
+
+    const updatedRecipes = recipes.splice(recipeIndex, 1);
     navigate("/");
     deleteRecipe(id!);
     contexData.setRecipes(recipes);

@@ -8,7 +8,6 @@ interface RecipeList {
 }
 
 const RecipeList = (data: RecipeList) => {
-
   let navigate = useNavigate();
 
   const routeChange = () => {
@@ -27,9 +26,11 @@ const RecipeList = (data: RecipeList) => {
       </Row>
       <hr></hr>
       <Row>
-        {data.recipeList.map((recipe, index) => (
-          <RecipeItem key={recipe.id} data={recipe} id={recipe.id} /> //Keys help React identify which items have changed, are added, or are removed
-        ))}
+        <Col className="scroll">
+          {data.recipeList.map((recipe, index) => (
+            <RecipeItem key={recipe.id} data={recipe} id={recipe.id} /> //Keys help React identify which items have changed, are added, or are removed
+          ))}
+        </Col>
       </Row>
     </Container>
   );
