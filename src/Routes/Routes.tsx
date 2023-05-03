@@ -5,11 +5,12 @@ import EditShopping from "../Component/ShoppingList/EditShoppingList";
 import RecipeDetail from "../Component/Recipe/RecipeDetail";
 import SelectRecipe from "../Component/Recipe/SelectRecipe";
 import EditRecipe from "../Component/Recipe/EditRecipe";
+import Login from "../Component/Auth/Login";
 
-const ComponentRoutes = () => {
+const   ComponentRoutes = (props : any) => {
   return (
       <Routes>
-        <Route path="/" element={<RecipeCompo />}>
+        <Route path="/" element={<RecipeCompo token = {props.userToken} />}>
           <Route path="" element={<SelectRecipe />}></Route>
           <Route path="newRecipe" element={<EditRecipe />}></Route>
           <Route path="/edit/:id" element={<EditRecipe />}></Route>

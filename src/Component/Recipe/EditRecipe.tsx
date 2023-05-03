@@ -48,7 +48,8 @@ const EditRecipe = () => {
       return console.log("Recipe Already exist");
     }
     setRecipeListData((previousArray: Recipe[]) => {
-      const maxID = Math.max.apply(
+      const maxID = Math.max.apply(     //allow you to repetitively perform an action on multiple chunks of data.
+                                        // An apply function is essentially a loop, but run faster than loops and often require less code.
         null,
         previousArray.map((recipe) => recipe.id)
       );

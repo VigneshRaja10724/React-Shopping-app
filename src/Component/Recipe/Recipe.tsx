@@ -5,11 +5,11 @@ import { Outlet } from "react-router-dom";
 import { getAll } from "../../Data/Http";
 import { Recipe } from "../../Model/Recipe";
 
-export default function RecipeCompo() {
+export default function RecipeCompo(props : any) {
   const [recipes, setRecipes] = useState<Recipe[] | undefined>();
 
   useEffect(() => {
-    getAll()
+    getAll(props.token)
       .then((recipe: Recipe[]) => {
         setRecipes(recipe);
       })
