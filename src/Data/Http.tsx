@@ -2,14 +2,14 @@ import { UserRequest } from "../Model/AuthRequest";
 import { Recipe } from "../Model/Recipe";
 
 export const getAll = async (token: any) => {
-  console.log(token.jwt)
-  const header = {
-    method: "GET",
-    headers: { "Content-Type": "application/json", "Authorization": "Bearer" + token },
-  };
+  const request = { 
+    method : "GET",
+    headers : { 'Authorization': `Bearer ${token}`}
+   };
+
   try {
     const response = await fetch(
-      "http://localhost:8080/recipes/getAll",header);
+      "http://localhost:8080/recipes/getAll",request);
     const recipes = await response.json();
     return recipes;
   } catch (error) {

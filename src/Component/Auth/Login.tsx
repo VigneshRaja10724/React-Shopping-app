@@ -19,7 +19,6 @@ const Login = (props : any) => {
       username : user,
       password : password
     }).then((responce : AuthResponse) => {
-      console.log(responce.expirationDate, responce.userId, responce.jwt)
       props.showLogin(responce.jwt);
     })
   };

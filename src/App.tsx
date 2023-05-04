@@ -10,8 +10,8 @@ function App() {
   const [token, setToken] = useState();
 
   const handelToken = (tokenValue: any) => {
-    setToken(tokenValue);
     console.log("token ", tokenValue);
+    setToken(tokenValue);
   };
 
   if (!token) {
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Header />
-      <ComponentRoutes userToken />
+      <ComponentRoutes userToken={token} />
     </>
   );
 }

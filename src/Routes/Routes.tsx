@@ -10,8 +10,8 @@ import Login from "../Component/Auth/Login";
 const   ComponentRoutes = (props : any) => {
   return (
       <Routes>
-        <Route path="/" element={<RecipeCompo token = {props.userToken} />}>
-          <Route path="" element={<SelectRecipe />}></Route>
+          <Route path="/" element={<RecipeCompo token = {props.userToken} />}>
+          <Route path="" element={<SelectRecipe /> }></Route>
           <Route path="newRecipe" element={<EditRecipe />}></Route>
           <Route path="/edit/:id" element={<EditRecipe />}></Route>
           <Route path="select/:id" element={<RecipeDetail />}></Route>
